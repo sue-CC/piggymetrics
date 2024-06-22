@@ -32,6 +32,8 @@ public class AccountController {
 		accountService.saveChanges(principal.getName(), account);
 	}
 
+	// username:
+	// password:
 	@RequestMapping(path = "/", method = RequestMethod.POST)
 	public Account createNewAccount(@Valid @RequestBody User user) {
 		return accountService.create(user);
