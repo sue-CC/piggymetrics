@@ -97,6 +97,11 @@
 			<version>2.2.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.devh</groupId>
+			<artifactId>grpc-server-spring-boot-starter</artifactId>
+			<version>3.0.0.RELEASE</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

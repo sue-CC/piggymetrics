@@ -1,10 +1,8 @@
 syntax = "proto3";
 
-package com.piggymetrics.statistics;
+package com.piggymetrics.account;
 
 import "google/protobuf/timestamp.proto";
-
-import "google/protobuf/type.proto";
 
 message UpdateStatisticsRequest {
   string Name = 1;
@@ -51,9 +49,43 @@ message Saving {
 }
 
 message UpdateStatisticsResponse {
-  Account updatedAccount = 1;
+  DataPoint updatedAccount = 1;
 }
 
-service StatisticsService {
+message DataPoint {
+  DataPointId id = 1;
+  repeated ItemMetric incomes = 2;
+  repeated ItemMetric expenses = 3;
+
+  message StatisticEntry {
+    StatisticMetric key = 1;
+    string value = 2;  // use string to express BigDecimal
+  }
+  repeated StatisticEntry statistics = 4;
+
+  message RateEntry {
+    Currency key = 1;
+    string value = 2;  // use string to express BigDecimal
+  }
+  repeated RateEntry rates = 5;
+}
+
+message DataPointId {
+  string account = 1;
+  google.protobuf.Timestamp date = 2;
+}
+
+message ItemMetric {
+  string name = 1;
+  string amount = 2;  // use string to express BigDecimal
+}
+
+enum StatisticMetric {
+  INCOME = 0;
+  EXPENSE = 1;
+  SAVING = 2;
+}
+
+service StatisticsGrpcService {
   rpc UpdateStatistics (UpdateStatisticsRequest) returns (UpdateStatisticsResponse);
 }

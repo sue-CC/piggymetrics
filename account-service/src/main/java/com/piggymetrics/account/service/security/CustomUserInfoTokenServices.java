@@ -60,6 +60,7 @@ public class CustomUserInfoTokenServices implements ResourceServerTokenServices 
 		this.authoritiesExtractor = authoritiesExtractor;
 	}
 
+	// load user information and transfer it into OAuth2Authentication
 	@Override
 	public OAuth2Authentication loadAuthentication(String accessToken)
 			throws AuthenticationException, InvalidTokenException {
@@ -71,9 +72,10 @@ public class CustomUserInfoTokenServices implements ResourceServerTokenServices 
 		return extractAuthentication(map);
 	}
 
+	// extract principal, authorities, request
 	private OAuth2Authentication extractAuthentication(Map<String, Object> map) {
-		Object principal = getPrincipal(map);
-		OAuth2Request request = getRequest(map);
+		Object principal = getPrincipal(map); // username
+		OAuth2Request request = getRequest(map); // request
 		List<GrantedAuthority> authorities = this.authoritiesExtractor
 				.extractAuthorities(map);
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
@@ -82,6 +84,7 @@ public class CustomUserInfoTokenServices implements ResourceServerTokenServices 
 		return new OAuth2Authentication(request, token);
 	}
 
+	// get the username
 	private Object getPrincipal(Map<String, Object> map) {
 		for (String key : PRINCIPAL_KEYS) {
 			if (map.containsKey(key)) {
@@ -91,6 +94,7 @@ public class CustomUserInfoTokenServices implements ResourceServerTokenServices 
 		return "unknown";
 	}
 
+	// get and construct the object of OAuth2Request include clientId, scope
 	@SuppressWarnings({ "unchecked" })
 	private OAuth2Request getRequest(Map<String, Object> map) {
 		Map<String, Object> request = (Map<String, Object>) map.get("oauth2Request");

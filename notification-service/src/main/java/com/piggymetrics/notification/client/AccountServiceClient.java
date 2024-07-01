@@ -14,3 +14,5 @@ public interface AccountServiceClient {
 
 }
 
+// request: accountName
+// response： string account -> need to be checked the exact format

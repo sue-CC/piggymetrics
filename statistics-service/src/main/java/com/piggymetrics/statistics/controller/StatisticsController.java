@@ -1,5 +1,6 @@
 package com.piggymetrics.statistics.controller;
 
+import com.piggymetrics.Statistics;
 import com.piggymetrics.statistics.domain.Account;
 import com.piggymetrics.statistics.domain.timeseries.DataPoint;
 import com.piggymetrics.statistics.service.StatisticsService;
@@ -33,4 +34,5 @@ public class StatisticsController {
 	public void saveAccountStatistics(@PathVariable String accountName, @Valid @RequestBody Account account) {
 		statisticsService.save(accountName, account);
 	}
+
 }

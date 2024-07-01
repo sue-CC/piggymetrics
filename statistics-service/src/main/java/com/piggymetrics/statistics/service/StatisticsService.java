@@ -1,5 +1,6 @@
 package com.piggymetrics.statistics.service;
 
+import com.piggymetrics.Statistics;
 import com.piggymetrics.statistics.domain.Account;
 import com.piggymetrics.statistics.domain.timeseries.DataPoint;
 
